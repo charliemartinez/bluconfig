@@ -1,2 +1,2 @@
 # bluconfig
-Instalar / desinstalar soporte para Bluetooth en Debian/Devuan GNU/Linux
+GUI Instalar / desinstalar soporte para Bluetooth en Debian/Devuan GNU/Linux
