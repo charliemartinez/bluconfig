@@ -1,0 +1,10 @@
+Package: bluconfig
+Version: 1.0.0
+Installed-Size: 915456
+Maintainer: Charlie Martinez <cmartinez@quirinux.org>
+Section: system
+Homepage: https://www.quirinux.org
+Architecture: all
+Priority: optional
+Description: Instala o desinstala bluetooth
+ Autor: Charlie Martinez

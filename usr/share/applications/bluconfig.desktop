@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Application
+Name=Bluetooth Config
+Comment=Install or uninstall bluetooth
+Comment[es]=Instalada o desinstala bluetooth
+Comment[gl]=Instalar ou desinstalar bluetooth
+Comment[fr]=Installer ou désinstaller Bluetooth
+Comment[it]=Installa o disinstalla Bluetooth
+Comment[de]=Installieren oder deinstallieren Sie Bluetooth
+Comment[pt]=Instalar ou desinstalar o bluetooth
+Comment[ru]=Установить или удалить блютуз
+Icon=bluconfig
+Exec=sudo bluconfig
+Type=Application
+Categories=GTK;System;
+Terminal=false
+NoDisplay=false
+StartupNotify=true
+Encoding=UTF-8

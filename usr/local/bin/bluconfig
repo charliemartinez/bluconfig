@@ -1,0 +1,478 @@
+#!/bin/bash
+
+# Nombre:	bluconfig
+# Autor:	Charlie Martínez® <cmartinez@quirinux.org>
+# Licencia:	https://www.gnu.org/licenses/gpl-3.0.txt
+# Descripción:	Instala soporte para Bluetooth en Debian/Devuan GNU/Linux
+# Versión:	1.0
+
+# =========================================================================================
+# INICIO / FIN (IDIOMAS) [CÓDIGO REUTILIZABLE]
+# =========================================================================================
+
+
+# Alemán
+function _inicio_de() # Verifica si está instalado zenity
+{
+if [ -e "/usr/bin/zenity" ]; then # Está instalado, continúa
+_menuPrincipal_de
+else # No está instalado zenity, lo instala y continúa
+_instalarZenity
+_menuPrincipal_de
+fi
+}
+function _fin_de()
+{
+zenity --info *text "Einstellungen vorgenommen. Sie können sie jederzeit umkehren. "
+}
+
+# Inglés
+function _inicio_en() # Verifica si está instalado zenity
+{
+if [ -e "/usr/bin/zenity" ]; then # Está instalado, continúa
+_menuPrincipal_en
+else # No está instalado zenity, lo instala y continúa
+_instalarZenity
+_menuPrincipal_en
+fi
+}
+function _fin_en()
+{
+zenity --info *text "Settings made. You can always reverse them."
+}
+
+# Castellano
+function _inicio_es() # Verifica si está instalado zenity
+{
+if [ -e "/usr/bin/zenity" ]; then # Está instalado, continúa
+_menuPrincipal_es
+else # No está instalado zenity, lo instala y continúa
+_instalarZenity
+_menuPrincipal_es
+fi
+}
+function _fin_es()
+{
+zenity --info *text "Configuraciones realizadas. Siempre puedes revertirlas."
+}
+
+# Francés
+function _inicio_fr() # Verifica si está instalado zenity
+{
+if [ -e "/usr/bin/zenity" ]; then # Está instalado, continúa
+_menuPrincipal_fr
+else # No está instalado zenity, lo instala y continúa
+_instalarZenity
+_menuPrincipal_fr
+fi
+}
+function _fin_fr()
+{
+zenity --info *text "Paramètres définis. Vous pouvez toujours les inverser. "
+}
+
+# Galego
+function _inicio_gl() # Verifica si está instalado zenity
+{
+if [ -e "/usr/bin/zenity" ]; then # Está instalado, continúa
+_menuPrincipal_gl
+else # No está instalado zenity, lo instala y continúa
+_instalarZenity
+_menuPrincipal_gl
+fi
+}
+function _fin_gl()
+{
+zenity --info *text "Configuración feita. Sempre os podes reverter."
+}
+
+# Italiano
+function _inicio_it () # Verifica si está instalado zenity
+{
+if [ -e "/usr/bin/zenity" ]; then # Está instalado, continúa
+_menuPrincipal_it
+else # No está instalado zenity, lo instala y continúa
+_instalarZenity
+_menuPrincipal_it 
+fi
+}
+function _fin_it ()
+{
+zenity --info *text "Impostazioni effettuate. Puoi sempre invertirli. "
+}
+
+# Portugués
+function _inicio_pt() # Verifica si está instalado zenity
+{
+if [ -e "/usr/bin/zenity" ]; then # Está instalado, continúa
+_menuPrincipal_pt
+else # No está instalado zenity, lo instala y continúa
+_instalarZenity
+_menuPrincipal_pt
+fi
+}
+function _fin_pt()
+{
+zenity --info *text "Configurações feitas. Você sempre pode revertê-los."
+}
+
+# Ruso
+function _inicio_ru() # Verifica si está instalado zenity
+{
+if [ -e "/usr/bin/zenity" ]; then # Está instalado, continúa
+_menuPrincipal_ru
+else # No está instalado zenity, lo instala y continúa
+_instalarZenity
+_menuPrincipal_ru
+fi
+}
+function _fin_ru()
+{
+zenity --info *text "Настройки сделаны. Вы всегда можете отменить их.  "
+}
+
+# =========================================================================================
+# INSTALAR ZENITY [CÓDIGO REUTILIZABLE]
+# =========================================================================================
+
+function _instalarZenity()
+{
+sudo apt-get install zenity -y
+}
+
+# =========================================================================================
+# SALIR [CÓDIGO REUTILIZABLE]
+# =========================================================================================
+
+
+function _salir()
+{
+exit 0
+}
+
+# =========================================================================================
+# SELECTOR DE IDIOMA [CÓDIGO REUTILIZABLE]
+# Esta sección fue tomada de Etertics GNU/Linux, 
+# @Autor: Javier Obregón (GPLv3)
+# =========================================================================================
+
+function _idioma() 
+
+{
+
+IDIOMA=$(echo $LANG | cut -d_ -f1) # Idioma del sistema
+
+if [[ $IDIOMA = "es" ]]
+then
+_inicio_es
+
+elif [[ $IDIOMA = "en" ]]
+then
+_inicio_en
+
+elif [[ $IDIOMA = "gl" ]]
+then
+_inicio_gl
+
+elif [[ $IDIOMA = "pt" ]]
+then
+_inicio_pt
+
+elif [[ $IDIOMA = "fr" ]]
+then
+_inicio_fr
+
+elif [[ $IDIOMA = "it" ]]
+then
+_inicio_it
+
+elif [[ $IDIOMA = "de" ]]
+then
+_inicio_de
+
+elif [[ $IDIOMA = "ru" ]]
+then
+_inicio_ru
+
+else
+_inicio_en
+fi
+
+}
+
+# INSTALA 
+
+function _instalar()
+{
+(
+echo "14"; sleep 1
+echo "# install blueman bluetooth"; sleep 1
+for paquetes in blueman bluetooth; do sudo apt-get install -y $paquetes; done
+echo "29"; sleep 1
+echo "# "; sleep 1
+for paquetes in bluez-cups bluez-firmware; do sudo apt-get install -y $paquetes; done
+echo "43"; sleep 1
+echo "# install bluez-cups bluez-firmware"; sleep 1
+for paquetes in bluez-obexd libbluetooth-dev; do sudo apt-get install -y $paquetes; done
+echo "57"; sleep 1
+echo "# install bluez-obexd libbluetooth-dev"; sleep 1
+for paquetes in libkf5bluezqt-data libkf5bluezqt6; do sudo apt-get install -y $paquetes; done
+echo "71"; sleep 1
+echo "# install qml-module-org-kde-bluezqt"; sleep 1
+for paquetes in qml-module-org-kde-bluezqt; do sudo apt-get install -y $paquetes; done
+echo "86"; sleep 1
+echo "# install qml-module-org-kde-bluezqt"; sleep 1
+sudo apt-get autoremove --purge
+echo "100"; sleep 1
+echo "# autoremove --purge"; sleep 1
+)|
+zenity --progress --title=" " --text=" " --percentage=0 --auto-close --auto-kill
+if [ "$?" = -1 ] ; then
+zenity --error --text="Configuration canceled"
+fi
+
+}
+
+# DESINSTALAR 
+
+function _desinstalar()
+{
+(
+echo "14"; sleep 1
+echo "# remove blueman bluetooth"; sleep 1
+for paquetes in blueman bluetooth; do sudo apt remove --purge -y $paquetes; done
+echo "29"; sleep 1
+echo "# "; sleep 1
+for paquetes in bluez-cups bluez-firmware; do sudo apt remove --purge -y $paquetes; done
+echo "43"; sleep 1
+echo "# remove bluez-cups bluez-firmware"; sleep 1
+for paquetes in bluez-obexd libbluetooth-dev; do sudo apt remove --purge -y $paquetes; done
+echo "57"; sleep 1
+echo "# remove bluez-obexd libbluetooth-dev"; sleep 1
+for paquetes in libkf5bluezqt-data libkf5bluezqt6; do sudo apt remove --purge -y $paquetes; done
+echo "71"; sleep 1
+echo "# remove qml-module-org-kde-bluezqt"; sleep 1
+for paquetes in qml-module-org-kde-bluezqt; do sudo apt remove --purge -y $paquetes; done
+echo "86"; sleep 1
+echo "# remove qml-module-org-kde-bluezqt"; sleep 1
+sudo apt-get autoremove --purge -y
+echo "100"; sleep 1
+echo "# autoremove --purge"; sleep 1
+)|
+zenity --progress --title=" " --text=" " --percentage=0 --auto-close --auto-kill
+if [ "$?" = -1 ] ; then
+zenity --error --text="Configuration canceled"
+fi
+
+}
+
+
+# =========================================================================================
+# CASTELLANO
+# =========================================================================================
+
+function _menuPrincipal_es()
+{
+opPrincipal=$(
+zenity --list --title "BLUETOOTH INSTALADOR" --width="600" --height="300" \
+--column="Opciones disponibles" \
+"Instalar firmware y utilidades para Bluetooth" \
+"Desinstalar" \
+"Salir" \
+)
+if [[ $opPrincipal == "Instalar firmware y utilidades para Bluetooth" ]]; then
+_instalar
+_fin_es
+fi
+if [[ $opPrincipal == "Desinstalar" ]]; then
+_desinstalar
+_fin_es
+fi
+if [[ $opPrincipal == "Salir" ]]; then
+_salir
+fi
+}
+
+# =========================================================================================
+# INGLÉS
+# =========================================================================================
+
+function _menuPrincipal_en()
+{
+opPrincipal=$(
+zenity --list --title "BLUETOOTH INSTALL" --width="600" --height="300" \
+--column="Opciones disponibles" \
+"Install firmware and utilities for Bluetooth" \
+"Uninstall" \
+"Exit" \
+)
+if [[ $opPrincipal == "Install firmware and utilities for Bluetooth" ]]; then
+_instalar
+_fin_en
+fi
+if [[ $opPrincipal == "Uninstall" ]]; then
+_desinstalar
+_fin_en
+fi
+if [[ $opPrincipal == "Exit" ]]; then
+_salir
+fi
+}
+
+# =========================================================================================
+# FRANCÉS
+# =========================================================================================
+
+function _menuPrincipal_fr()
+{
+opPrincipal=$(
+zenity --list --title "INSTALLATEUR BLUETOOTH" --width="600" --height="300" \
+--column="Opciones disponibles" \
+"Installer le firmware et les utilitaires pour Bluetooth" \
+"Désinstaller" \
+"Sortir" \
+)
+if [[ $opPrincipal == "Installer le firmware et les utilitaires pour Bluetooth" ]]; then
+_instalar
+_fin_fr
+fi
+if [[ $opPrincipal == "Désinstaller" ]]; then
+_desinstalar
+_fin_fr
+fi
+if [[ $opPrincipal == "Sortir" ]]; then
+_salir
+fi
+}
+
+# =========================================================================================
+# ALEMÁN
+# =========================================================================================
+
+function _menuPrincipal_de()
+{
+opPrincipal=$(
+zenity --list --title "BLUETOOTH-INSTALLATOR" --width="600" --height="300" \
+--column="Opciones disponibles" \
+"Installieren Sie Firmware und Dienstprogramme für Bluetooth" \
+"Deinstallieren" \
+"Aussteigen" \
+)
+if [[ $opPrincipal == "Installieren Sie Firmware und Dienstprogramme für Bluetooth" ]]; then
+_instalar
+_fin_de
+fi
+if [[ $opPrincipal == "Deinstallieren" ]]; then
+_desinstalar
+_fin_de
+fi
+if [[ $opPrincipal == "Aussteigen" ]]; then
+_salir
+fi
+}
+
+# =========================================================================================
+# ITALIANO
+# =========================================================================================
+
+function _menuPrincipal_it()
+{
+opPrincipal=$(
+zenity --list --title "INSTALLATORE BLUETOOTH" --width="600" --height="300" \
+--column="Opciones disponibles" \
+"Installa firmware e utilità per Bluetooth" \
+"Disinstallare" \
+"Uscire" \
+)
+if [[ $opPrincipal == "Installa firmware e utilità per Bluetooth" ]]; then
+_instalar
+_fin_it
+fi
+if [[ $opPrincipal == "Disinstallare" ]]; then
+_desinstalar
+_fin_it
+fi
+if [[ $opPrincipal == "Uscire" ]]; then
+_salir
+fi
+}
+
+# =========================================================================================
+# GALLEGO
+# =========================================================================================
+
+function _menuPrincipal_gl()
+{
+opPrincipal=$(
+zenity --list --title "INSTALADOR DE BLUETOOTH" --width="600" --height="300" \
+--column="Opciones disponibles" \
+"Instala firmware e utilidades para Bluetooth" \
+"Desinstalar" \
+"Fóra" \
+)
+if [[ $opPrincipal == "Instala firmware e utilidades para Bluetooth" ]]; then
+_instalar
+_fin_gl
+fi
+if [[ $opPrincipal == "Desinstalar" ]]; then
+_desinstalar
+_fin_gl
+fi
+if [[ $opPrincipal == "Fóra" ]]; then
+_salir
+fi
+}
+
+# =========================================================================================
+# PORTUGUÉS
+# =========================================================================================
+
+function _menuPrincipal_pt()
+{
+opPrincipal=$(
+zenity --list --title "INSTALADOR DE BLUETOOTH" --width="600" --height="300" \
+--column="Opciones disponibles" \
+"Instalar firmware e utilitários para Bluetooth" \
+"Desinstalar" \
+"Sair" \
+)
+if [[ $opPrincipal == "Instalar firmware e utilitários para Bluetooth" ]]; then
+_instalar
+_fin_pt
+fi
+if [[ $opPrincipal == "Desinstalar" ]]; then
+_desinstalar
+_fin_pt
+fi
+if [[ $opPrincipal == "Sair" ]]; then
+_salir
+fi
+}
+
+# =========================================================================================
+# RUSO
+# =========================================================================================
+
+function _menuPrincipal_ru()
+{
+opPrincipal=$(
+zenity --list --title "ПРОГРАММА УСТАНОВКИ BLUETOOTH" --width="600" --height="300" \
+--column="Opciones disponibles" \
+"Установить прошивку и утилиты для Bluetooth" \
+"удалить" \
+"Убирайся" \
+)
+if [[ $opPrincipal == "Установить прошивку и утилиты для Bluetooth" ]]; then
+_instalar
+_fin_ru
+fi
+if [[ $opPrincipal == "удалить" ]]; then
+_desinstalar
+_fin_ru
+fi
+if [[ $opPrincipal == "Убирайся" ]]; then
+_salir
+fi
+}
+
+_idioma

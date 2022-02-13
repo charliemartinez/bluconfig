@@ -1,0 +1,6 @@
+c3e3b14a864894b1b3dd54164f3df1cd usr/local/bin/bluconfig
+cba28be3dbbd9c5701590e37b8012884 usr/share/pixmaps/bluconfig.png
+8f386b4f3d5760669ab07718bd69c8c4 usr/share/applications/bluconfig.desktop
+cba28be3dbbd9c5701590e37b8012884 usr/share/icons/bluconfig.png
+d41d8cd98f00b204e9800998ecf8427e  -
+7a4e1cb3f9f5936b7526491f105c19ac etc/sudoers.d/bluconfig
